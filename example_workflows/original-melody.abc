@@ -1,0 +1,18 @@
+X:1
+T:Morning Route
+M:4/4
+L:1/32
+Q:1/4=88
+V: Vocal clef=treble name="Vocal Melody" snm="Vocal"
+V: Ins clef=treble name="Ins Melody" snm="Inst."
+K:C
+% verse
+V: Vocal
+"C"E4G4A4G4E4D4E4G4|"G"D4G4A4B4A4G4D4G4|"Am"E4A4B4c4B4A4G4E4|"F"F4A4G4F4E4D4C8|
+V: Ins
+Z4|
+% chorus
+V: Vocal
+"C"G4c4B4A4G4E4G8|"G"B4d4c4B4A4G4A8|"Am"c4B4A4G4E4G4A8|"F"A4G4F4E4D4E4C8|
+V: Ins
+Z4|

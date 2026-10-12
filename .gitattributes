@@ -1,0 +1,2 @@
+# Preserve the upstream bytes verified by runtime/official-source.json.
+runtime/vendor/** -text

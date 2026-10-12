@@ -1,0 +1,133 @@
+{
+  "1": {
+    "class_type": "SomoraYuE2ModelLoader",
+    "inputs": {
+      "model": "YuE2-3B",
+      "vae": "YuE2-Vae",
+      "device": "cuda:0",
+      "memory_budget_gib": 24.0,
+      "backend": "torch-eager",
+      "quantization": "none",
+      "offload_ar": false,
+      "vae_core_frames": 1024,
+      "verify_hashes": true
+    },
+    "_meta": {
+      "title": "YuE2 Official Model Loader"
+    }
+  },
+  "2": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "select-source-audio.wav"
+    },
+    "_meta": {
+      "title": "Upload and select your source song"
+    }
+  },
+  "3": {
+    "class_type": "SomoraYuE2Transcribe",
+    "inputs": {
+      "mode": "melody",
+      "device": "cuda:0",
+      "dtype": "bf16",
+      "preset": "default",
+      "max_seconds": 0.0,
+      "overlap_seconds": 200.0,
+      "lookahead_seconds": 100.0,
+      "automatic_window_settings": true,
+      "prompts": "",
+      "export_logits": false,
+      "export_scores": false,
+      "export_embeddings": false,
+      "output_hidden_states": false,
+      "render_audio": false,
+      "render_score": "none",
+      "render_parts": "mix",
+      "audio": [
+        "2",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official SheetSage2 Transcribe"
+    }
+  },
+  "4": {
+    "class_type": "SomoraYuE2TextEncode",
+    "inputs": {
+      "style": "English, jazz-funk, warm expressive lead vocal, Rhodes piano, rounded bass and lively drums, 88 BPM",
+      "lyrics": "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+      "cot": "melody",
+      "seed": 831001,
+      "automatic_cfg": true,
+      "cfg_scale": 1.0,
+      "song_id": "city_lights_cover",
+      "abc": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Text Encode"
+    }
+  },
+  "5": {
+    "class_type": "SomoraYuE2GenerationOptions",
+    "inputs": {
+      "abc_temperature": 0.7,
+      "abc_top_p": 0.9,
+      "abc_top_k": 30,
+      "abc_repetition_penalty": 1.005,
+      "abc_penalty_window": 100,
+      "abc_min_tokens": 32,
+      "abc_max_tokens": 4096,
+      "semantic_temperature": 1.0,
+      "semantic_top_p": 0.95,
+      "semantic_top_k": 100,
+      "semantic_repetition_penalty": 1.2,
+      "semantic_penalty_window": 50,
+      "semantic_min_tokens": 200,
+      "semantic_max_tokens": 9000,
+      "ode_steps": 32,
+      "decode_full": false
+    },
+    "_meta": {
+      "title": "YuE2 Official Generation Options"
+    }
+  },
+  "6": {
+    "class_type": "SomoraYuE2Generate",
+    "inputs": {
+      "models": [
+        "1",
+        0
+      ],
+      "text": [
+        "4",
+        0
+      ],
+      "options": [
+        "5",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Generate Music"
+    }
+  },
+  "7": {
+    "class_type": "SaveAudioAdvanced",
+    "inputs": {
+      "filename_prefix": "audio/YuE2/cover",
+      "format": "flac",
+      "audio": [
+        "6",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "SaveAudioAdvanced"
+    }
+  }
+}

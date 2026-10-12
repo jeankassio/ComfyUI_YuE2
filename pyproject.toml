@@ -1,0 +1,17 @@
+[project]
+name = "comfyui-yue2"
+version = "0.1.0"
+description = "ComfyUI nodes for the official YuE2 Python generation and SheetSage2 transcription pipelines"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Jean Kássio" }]
+dependencies = ["numpy>=1.26", "soundfile>=0.12", "tqdm>=4.66"]
+
+[project.urls]
+Repository = "https://github.com/jeankassio/ComfyUI_YuE2"
+Issues = "https://github.com/jeankassio/ComfyUI_YuE2/issues"
+
+[tool.comfy]
+PublisherId = "jeankassio"
+DisplayName = "YuE2 Official Python Pipeline"

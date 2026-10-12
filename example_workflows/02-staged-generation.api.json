@@ -1,0 +1,152 @@
+{
+  "1": {
+    "class_type": "SomoraYuE2ModelLoader",
+    "inputs": {
+      "model": "YuE2-3B",
+      "vae": "YuE2-Vae",
+      "device": "cuda:0",
+      "memory_budget_gib": 24.0,
+      "backend": "torch-eager",
+      "quantization": "none",
+      "offload_ar": false,
+      "vae_core_frames": 1024,
+      "verify_hashes": true
+    },
+    "_meta": {
+      "title": "YuE2 Official Model Loader"
+    }
+  },
+  "2": {
+    "class_type": "SomoraYuE2TextEncode",
+    "inputs": {
+      "style": "English, warm piano pop, expressive female voice, acoustic piano, rounded bass and light drums, lyrical memorable melody, unhurried phrasing, 88 BPM",
+      "lyrics": "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+      "cot": "full",
+      "seed": 831001,
+      "automatic_cfg": true,
+      "cfg_scale": 1.0,
+      "song_id": "city_lights"
+    },
+    "_meta": {
+      "title": "YuE2 Official Text Encode"
+    }
+  },
+  "3": {
+    "class_type": "SomoraYuE2GenerationOptions",
+    "inputs": {
+      "abc_temperature": 0.7,
+      "abc_top_p": 0.9,
+      "abc_top_k": 30,
+      "abc_repetition_penalty": 1.005,
+      "abc_penalty_window": 100,
+      "abc_min_tokens": 32,
+      "abc_max_tokens": 4096,
+      "semantic_temperature": 1.0,
+      "semantic_top_p": 0.95,
+      "semantic_top_k": 100,
+      "semantic_repetition_penalty": 1.2,
+      "semantic_penalty_window": 50,
+      "semantic_min_tokens": 200,
+      "semantic_max_tokens": 9000,
+      "ode_steps": 32,
+      "decode_full": false
+    },
+    "_meta": {
+      "title": "YuE2 Official Generation Options"
+    }
+  },
+  "4": {
+    "class_type": "SomoraYuE2Plan",
+    "inputs": {
+      "text": [
+        "2",
+        0
+      ],
+      "models": [
+        "1",
+        0
+      ],
+      "options": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Generate ABC"
+    }
+  },
+  "5": {
+    "class_type": "SomoraYuE2SemanticTokens",
+    "inputs": {
+      "plan": [
+        "4",
+        0
+      ],
+      "models": [
+        "1",
+        0
+      ],
+      "options": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Semantic Tokens"
+    }
+  },
+  "6": {
+    "class_type": "SomoraYuE2Synthesize",
+    "inputs": {
+      "semantic": [
+        "5",
+        0
+      ],
+      "models": [
+        "1",
+        0
+      ],
+      "options": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Synthesize"
+    }
+  },
+  "7": {
+    "class_type": "SomoraYuE2Decode",
+    "inputs": {
+      "latents": [
+        "6",
+        0
+      ],
+      "models": [
+        "1",
+        0
+      ],
+      "options": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "YuE2 Official Decode Audio"
+    }
+  },
+  "8": {
+    "class_type": "SaveAudioAdvanced",
+    "inputs": {
+      "filename_prefix": "audio/YuE2/staged",
+      "format": "flac",
+      "audio": [
+        "7",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "SaveAudioAdvanced"
+    }
+  }
+}

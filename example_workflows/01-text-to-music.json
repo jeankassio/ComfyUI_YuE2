@@ -1,0 +1,472 @@
+{
+  "id": "4adf9f38-a5af-5eef-a4e6-a5025ef9cb62",
+  "revision": 0,
+  "version": 1,
+  "state": {
+    "lastGroupId": 3,
+    "lastNodeId": 4,
+    "lastLinkId": 3,
+    "lastRerouteId": 0
+  },
+  "nodes": [
+    {
+      "id": 1,
+      "type": "SomoraYuE2ModelLoader",
+      "pos": [
+        50,
+        60
+      ],
+      "size": [
+        340,
+        330
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "model"
+          }
+        },
+        {
+          "name": "vae",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "vae"
+          }
+        },
+        {
+          "name": "device",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "device"
+          }
+        },
+        {
+          "name": "memory_budget_gib",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "memory_budget_gib"
+          }
+        },
+        {
+          "name": "backend",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "backend"
+          }
+        },
+        {
+          "name": "quantization",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "quantization"
+          }
+        },
+        {
+          "name": "offload_ar",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "offload_ar"
+          }
+        },
+        {
+          "name": "vae_core_frames",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "vae_core_frames"
+          }
+        },
+        {
+          "name": "verify_hashes",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "verify_hashes"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "YuE2 Official Model Loader",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2ModelLoader",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [
+        "YuE2-3B",
+        "YuE2-Vae",
+        "cuda:0",
+        24.0,
+        "torch-eager",
+        "none",
+        false,
+        1024,
+        true
+      ],
+      "widgets_values_named": {
+        "model": "YuE2-3B",
+        "vae": "YuE2-Vae",
+        "device": "cuda:0",
+        "memory_budget_gib": 24.0,
+        "backend": "torch-eager",
+        "quantization": "none",
+        "offload_ar": false,
+        "vae_core_frames": 1024,
+        "verify_hashes": true
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 2,
+      "type": "SomoraYuE2TextEncode",
+      "pos": [
+        450,
+        60
+      ],
+      "size": [
+        480,
+        630
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style"
+          }
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "lyrics"
+          }
+        },
+        {
+          "name": "cot",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "cot"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "automatic_cfg",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "automatic_cfg"
+          }
+        },
+        {
+          "name": "cfg_scale",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "cfg_scale"
+          }
+        },
+        {
+          "name": "song_id",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "song_id"
+          }
+        },
+        {
+          "name": "abc",
+          "type": "STRING",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "YUE2_INPUT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "YuE2 Official Text Encode",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2TextEncode",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [
+        "English, warm piano pop, expressive female voice, acoustic piano, rounded bass and light drums, lyrical memorable melody, unhurried phrasing, 88 BPM",
+        "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+        "full",
+        831001,
+        "fixed",
+        true,
+        1.0,
+        "city_lights"
+      ],
+      "widgets_values_named": {
+        "style": "English, warm piano pop, expressive female voice, acoustic piano, rounded bass and light drums, lyrical memorable melody, unhurried phrasing, 88 BPM",
+        "lyrics": "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+        "cot": "full",
+        "seed": 831001,
+        "control_after_generate": "fixed",
+        "automatic_cfg": true,
+        "cfg_scale": 1.0,
+        "song_id": "city_lights"
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 3,
+      "type": "SomoraYuE2Generate",
+      "pos": [
+        990,
+        60
+      ],
+      "size": [
+        310,
+        150
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "link": 1
+        },
+        {
+          "name": "text",
+          "type": "YUE2_INPUT",
+          "link": 2
+        },
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "abc",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2
+        }
+      ],
+      "title": "YuE2 Official Generate Music",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2Generate",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {},
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 4,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        1360,
+        60
+      ],
+      "size": [
+        340,
+        240
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "filename_prefix"
+          }
+        },
+        {
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "link": null,
+          "widget": {
+            "name": "format"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "title": "SaveAudioAdvanced",
+      "properties": {
+        "Node name for S&R": "SaveAudioAdvanced",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "audio/YuE2/text-to-music",
+        "flac"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "audio/YuE2/text-to-music",
+        "format": "flac"
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    }
+  ],
+  "links": [
+    {
+      "id": 1,
+      "origin_id": 1,
+      "origin_slot": 0,
+      "target_id": 3,
+      "target_slot": 0,
+      "type": "YUE2_MODELS"
+    },
+    {
+      "id": 2,
+      "origin_id": 2,
+      "origin_slot": 0,
+      "target_id": 3,
+      "target_slot": 1,
+      "type": "YUE2_INPUT"
+    },
+    {
+      "id": 3,
+      "origin_id": 3,
+      "origin_slot": 0,
+      "target_id": 4,
+      "target_slot": 0,
+      "type": "AUDIO"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "01 — Official models",
+      "bounding": [
+        25,
+        15,
+        390,
+        420
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    },
+    {
+      "id": 2,
+      "title": "02 — Style and lyrics",
+      "bounding": [
+        425,
+        15,
+        530,
+        720
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    },
+    {
+      "id": 3,
+      "title": "03 — Generate and listen",
+      "bounding": [
+        965,
+        15,
+        760,
+        340
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    }
+  ],
+  "reroutes": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.65,
+      "offset": [
+        40,
+        80
+      ]
+    },
+    "info": {
+      "name": "YuE2 Official — Text to Music",
+      "author": "Jean Kássio",
+      "description": "Official YuE2 Python pipeline with pinned unquantized models and FLAC output.",
+      "version": "0.1.0",
+      "created": "2026-10-12",
+      "modified": "2026-10-12",
+      "software": "ComfyUI"
+    }
+  }
+}

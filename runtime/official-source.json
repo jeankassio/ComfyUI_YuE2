@@ -1,0 +1,29 @@
+{
+  "repository": "https://github.com/multimodal-art-projection/YuE",
+  "commit": "1647252d68b70cbead046ffd3f7caf036dde47ee",
+  "release": "yue2-v0.1.6",
+  "files": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "MANIFEST.in": "da84994c9e46fd0bbaf52bf1f5c0320b23bf700640d535b26e1d8e552f7f1ff1",
+    "MODEL_LICENSE": "c7a0e99360555513ff56815b5dbbc8f0b27a3ad762ceaeeab6838baea9743b3a",
+    "pyproject.toml": "909135d21d90185c19190c9cd3c45cccaa8e1004958c1628fd0a95efcd1ec2fc",
+    "README.md": "ca41207b5edc1bbd9902ae21ade99986d7a81deff706a47bff252f7c3f987810",
+    "THIRD_PARTY_NOTICES.md": "c552c22ea11e421d4e6b85cfb03a346f33fd18ec00f894a7e6ccc3ae82fb8564",
+    "licenses/SnakeBeta-NVIDIA-MIT.txt": "e2f86126a8a56dfd0882e9112e282c7599a34d2c4479f6f5c461b8c2121a579f",
+    "licenses/stable-audio-tools-MIT.txt": "a1fac33b7bcd791b74fb33aeb439f825e7277e239fc119fb7d2ab6f084a0c101",
+    "src/yue2/__init__.py": "e35b3471f497934fe5dbe4aa615fc571b82e075b973fef3eebbe994368148ea8",
+    "src/yue2/cli.py": "d4d442c75abc958f3d3dd0472af955acf82bdb9852f817f19e51344e59341689",
+    "src/yue2/cuda_graph.py": "9c5bce70ce3eb7e465b4a670f1d7cfc97a997119fc8783d3ee02e51c98799c03",
+    "src/yue2/fast.py": "5a2da61bff8471bcbc0366655c161b0df2eec946adc3fa557e3838fb2f834445",
+    "src/yue2/modeling_vae.py": "b6c6ca21fa3c18814da3998cb20ddcbab8dad1764d84a86c51977a8f7642f00b",
+    "src/yue2/modeling_yue2.py": "62d2bd758c8fff1a0d64584a699343076fca9a7880db5d8e19263bc30ae79d7c",
+    "src/yue2/nar.py": "1a13a8e54b40229e008a270804a1fb830dfdf806735be484e8ce10171eb4b8d8",
+    "src/yue2/pipeline.py": "ac59d3c3ed038a583ced0dca986a944447c182b2ec98257721f43d131c77d112",
+    "src/yue2/progress.py": "8de1fa588607dd0525aee37b652f44b17350689ad9e6ddcba8aaa8aaccf61b24",
+    "src/yue2/protocol.py": "e00d32bf22baac46c7d4dafaeecd4f3d5a4753d651b3dc8f4164b9f3774980ad",
+    "src/yue2/quantization.py": "91e54fcd38a638727ebc05e240d2997097c541eec0cc18693fe429f702f38e78",
+    "src/yue2/sampling.py": "b680afd5d6b6694b0e8d430b4c1b6d3b5108107672b06500ecc6645c471bf6c4",
+    "src/yue2/storage.py": "cd1984834e88a5bf12fa70e5390a123680ab4cb768e6b5d23a18ec660958a8dc",
+    "src/yue2/tokenization_yue2.py": "fc88387f96e5db2020a0c3f5374b82726206026d83159b68b83e4136bb741acc"
+  }
+}

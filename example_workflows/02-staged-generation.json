@@ -1,0 +1,934 @@
+{
+  "id": "6f61c436-a05e-5275-89b8-0df373c13c67",
+  "revision": 0,
+  "version": 1,
+  "state": {
+    "lastGroupId": 3,
+    "lastNodeId": 8,
+    "lastLinkId": 13,
+    "lastRerouteId": 0
+  },
+  "nodes": [
+    {
+      "id": 1,
+      "type": "SomoraYuE2ModelLoader",
+      "pos": [
+        50,
+        60
+      ],
+      "size": [
+        340,
+        330
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "model"
+          }
+        },
+        {
+          "name": "vae",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "vae"
+          }
+        },
+        {
+          "name": "device",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "device"
+          }
+        },
+        {
+          "name": "memory_budget_gib",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "memory_budget_gib"
+          }
+        },
+        {
+          "name": "backend",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "backend"
+          }
+        },
+        {
+          "name": "quantization",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "quantization"
+          }
+        },
+        {
+          "name": "offload_ar",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "offload_ar"
+          }
+        },
+        {
+          "name": "vae_core_frames",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "vae_core_frames"
+          }
+        },
+        {
+          "name": "verify_hashes",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "verify_hashes"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "links": [
+            6,
+            8,
+            10,
+            12
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "YuE2 Official Model Loader",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2ModelLoader",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [
+        "YuE2-3B",
+        "YuE2-Vae",
+        "cuda:0",
+        24.0,
+        "torch-eager",
+        "none",
+        false,
+        1024,
+        true
+      ],
+      "widgets_values_named": {
+        "model": "YuE2-3B",
+        "vae": "YuE2-Vae",
+        "device": "cuda:0",
+        "memory_budget_gib": 24.0,
+        "backend": "torch-eager",
+        "quantization": "none",
+        "offload_ar": false,
+        "vae_core_frames": 1024,
+        "verify_hashes": true
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 2,
+      "type": "SomoraYuE2TextEncode",
+      "pos": [
+        450,
+        60
+      ],
+      "size": [
+        480,
+        630
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style"
+          }
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "lyrics"
+          }
+        },
+        {
+          "name": "cot",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "cot"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "automatic_cfg",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "automatic_cfg"
+          }
+        },
+        {
+          "name": "cfg_scale",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "cfg_scale"
+          }
+        },
+        {
+          "name": "song_id",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "song_id"
+          }
+        },
+        {
+          "name": "abc",
+          "type": "STRING",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "YUE2_INPUT",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "YuE2 Official Text Encode",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2TextEncode",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [
+        "English, warm piano pop, expressive female voice, acoustic piano, rounded bass and light drums, lyrical memorable melody, unhurried phrasing, 88 BPM",
+        "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+        "full",
+        831001,
+        "fixed",
+        true,
+        1.0,
+        "city_lights"
+      ],
+      "widgets_values_named": {
+        "style": "English, warm piano pop, expressive female voice, acoustic piano, rounded bass and light drums, lyrical memorable melody, unhurried phrasing, 88 BPM",
+        "lyrics": "[Verse]\nNeon fades along the lane\nFootsteps keep the time of rain\nFold the night and leave it here\nMorning has a sky to clear\n\n[Chorus]\nLet the day come into view\nEvery road begins with you\nHold a little room for light\nWe will sing beyond the night",
+        "cot": "full",
+        "seed": 831001,
+        "control_after_generate": "fixed",
+        "automatic_cfg": true,
+        "cfg_scale": 1.0,
+        "song_id": "city_lights"
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 3,
+      "type": "SomoraYuE2GenerationOptions",
+      "pos": [
+        50,
+        490
+      ],
+      "size": [
+        340,
+        510
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "abc_temperature",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "abc_temperature"
+          }
+        },
+        {
+          "name": "abc_top_p",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "abc_top_p"
+          }
+        },
+        {
+          "name": "abc_top_k",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "abc_top_k"
+          }
+        },
+        {
+          "name": "abc_repetition_penalty",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "abc_repetition_penalty"
+          }
+        },
+        {
+          "name": "abc_penalty_window",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "abc_penalty_window"
+          }
+        },
+        {
+          "name": "abc_min_tokens",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "abc_min_tokens"
+          }
+        },
+        {
+          "name": "abc_max_tokens",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "abc_max_tokens"
+          }
+        },
+        {
+          "name": "semantic_temperature",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "semantic_temperature"
+          }
+        },
+        {
+          "name": "semantic_top_p",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "semantic_top_p"
+          }
+        },
+        {
+          "name": "semantic_top_k",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "semantic_top_k"
+          }
+        },
+        {
+          "name": "semantic_repetition_penalty",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "semantic_repetition_penalty"
+          }
+        },
+        {
+          "name": "semantic_penalty_window",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "semantic_penalty_window"
+          }
+        },
+        {
+          "name": "semantic_min_tokens",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "semantic_min_tokens"
+          }
+        },
+        {
+          "name": "semantic_max_tokens",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "semantic_max_tokens"
+          }
+        },
+        {
+          "name": "ode_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "ode_steps"
+          }
+        },
+        {
+          "name": "decode_full",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "decode_full"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "links": [
+            7,
+            9,
+            11,
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "YuE2 Official Generation Options",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2GenerationOptions",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [
+        0.7,
+        0.9,
+        30,
+        1.005,
+        100,
+        32,
+        4096,
+        1.0,
+        0.95,
+        100,
+        1.2,
+        50,
+        200,
+        9000,
+        32,
+        false
+      ],
+      "widgets_values_named": {
+        "abc_temperature": 0.7,
+        "abc_top_p": 0.9,
+        "abc_top_k": 30,
+        "abc_repetition_penalty": 1.005,
+        "abc_penalty_window": 100,
+        "abc_min_tokens": 32,
+        "abc_max_tokens": 4096,
+        "semantic_temperature": 1.0,
+        "semantic_top_p": 0.95,
+        "semantic_top_k": 100,
+        "semantic_repetition_penalty": 1.2,
+        "semantic_penalty_window": 50,
+        "semantic_min_tokens": 200,
+        "semantic_max_tokens": 9000,
+        "ode_steps": 32,
+        "decode_full": false
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 4,
+      "type": "SomoraYuE2Plan",
+      "pos": [
+        990,
+        60
+      ],
+      "size": [
+        320,
+        180
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "link": 6
+        },
+        {
+          "name": "text",
+          "type": "YUE2_INPUT",
+          "link": 1
+        },
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "link": 7,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "plan",
+          "type": "YUE2_PLAN",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "abc",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2
+        }
+      ],
+      "title": "YuE2 Official Generate ABC",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2Plan",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {},
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 5,
+      "type": "SomoraYuE2SemanticTokens",
+      "pos": [
+        990,
+        360
+      ],
+      "size": [
+        320,
+        160
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "link": 8
+        },
+        {
+          "name": "plan",
+          "type": "YUE2_PLAN",
+          "link": 2
+        },
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "link": 9,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "semantic",
+          "type": "YUE2_SEMANTIC",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "title": "YuE2 Official Semantic Tokens",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2SemanticTokens",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {},
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 6,
+      "type": "SomoraYuE2Synthesize",
+      "pos": [
+        1380,
+        360
+      ],
+      "size": [
+        320,
+        160
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "link": 10
+        },
+        {
+          "name": "semantic",
+          "type": "YUE2_SEMANTIC",
+          "link": 3
+        },
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "link": 11,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latents",
+          "type": "YUE2_LATENT",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "title": "YuE2 Official Synthesize",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2Synthesize",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {},
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 7,
+      "type": "SomoraYuE2Decode",
+      "pos": [
+        1770,
+        360
+      ],
+      "size": [
+        320,
+        160
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "models",
+          "type": "YUE2_MODELS",
+          "link": 12
+        },
+        {
+          "name": "latents",
+          "type": "YUE2_LATENT",
+          "link": 4
+        },
+        {
+          "name": "options",
+          "type": "YUE2_OPTIONS",
+          "link": 13,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "title": "YuE2 Official Decode Audio",
+      "properties": {
+        "Node name for S&R": "SomoraYuE2Decode",
+        "aux_id": "jeankassio/ComfyUI_YuE2",
+        "ver": "0.1.0"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {},
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    },
+    {
+      "id": 8,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        2160,
+        360
+      ],
+      "size": [
+        340,
+        240
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "filename_prefix"
+          }
+        },
+        {
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "link": null,
+          "widget": {
+            "name": "format"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "title": "SaveAudioAdvanced",
+      "properties": {
+        "Node name for S&R": "SaveAudioAdvanced",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "audio/YuE2/staged",
+        "flac"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "audio/YuE2/staged",
+        "format": "flac"
+      },
+      "color": "#24313c",
+      "bgcolor": "#17222b"
+    }
+  ],
+  "links": [
+    {
+      "id": 1,
+      "origin_id": 2,
+      "origin_slot": 0,
+      "target_id": 4,
+      "target_slot": 1,
+      "type": "YUE2_INPUT"
+    },
+    {
+      "id": 2,
+      "origin_id": 4,
+      "origin_slot": 0,
+      "target_id": 5,
+      "target_slot": 1,
+      "type": "YUE2_PLAN"
+    },
+    {
+      "id": 3,
+      "origin_id": 5,
+      "origin_slot": 0,
+      "target_id": 6,
+      "target_slot": 1,
+      "type": "YUE2_SEMANTIC"
+    },
+    {
+      "id": 4,
+      "origin_id": 6,
+      "origin_slot": 0,
+      "target_id": 7,
+      "target_slot": 1,
+      "type": "YUE2_LATENT"
+    },
+    {
+      "id": 5,
+      "origin_id": 7,
+      "origin_slot": 0,
+      "target_id": 8,
+      "target_slot": 0,
+      "type": "AUDIO"
+    },
+    {
+      "id": 6,
+      "origin_id": 1,
+      "origin_slot": 0,
+      "target_id": 4,
+      "target_slot": 0,
+      "type": "YUE2_MODELS"
+    },
+    {
+      "id": 7,
+      "origin_id": 3,
+      "origin_slot": 0,
+      "target_id": 4,
+      "target_slot": 2,
+      "type": "YUE2_OPTIONS"
+    },
+    {
+      "id": 8,
+      "origin_id": 1,
+      "origin_slot": 0,
+      "target_id": 5,
+      "target_slot": 0,
+      "type": "YUE2_MODELS"
+    },
+    {
+      "id": 9,
+      "origin_id": 3,
+      "origin_slot": 0,
+      "target_id": 5,
+      "target_slot": 2,
+      "type": "YUE2_OPTIONS"
+    },
+    {
+      "id": 10,
+      "origin_id": 1,
+      "origin_slot": 0,
+      "target_id": 6,
+      "target_slot": 0,
+      "type": "YUE2_MODELS"
+    },
+    {
+      "id": 11,
+      "origin_id": 3,
+      "origin_slot": 0,
+      "target_id": 6,
+      "target_slot": 2,
+      "type": "YUE2_OPTIONS"
+    },
+    {
+      "id": 12,
+      "origin_id": 1,
+      "origin_slot": 0,
+      "target_id": 7,
+      "target_slot": 0,
+      "type": "YUE2_MODELS"
+    },
+    {
+      "id": 13,
+      "origin_id": 3,
+      "origin_slot": 0,
+      "target_id": 7,
+      "target_slot": 2,
+      "type": "YUE2_OPTIONS"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "01 — Models and sampling controls",
+      "bounding": [
+        25,
+        15,
+        390,
+        1040
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    },
+    {
+      "id": 2,
+      "title": "02 — Song request",
+      "bounding": [
+        425,
+        15,
+        530,
+        720
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    },
+    {
+      "id": 3,
+      "title": "03 — Exact plan → semantic tokens → acoustic latents → audio",
+      "bounding": [
+        965,
+        15,
+        1560,
+        640
+      ],
+      "color": "#354957",
+      "font_size": 22,
+      "locked": false
+    }
+  ],
+  "reroutes": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.65,
+      "offset": [
+        40,
+        80
+      ]
+    },
+    "info": {
+      "name": "YuE2 Official — Staged Generation",
+      "author": "Jean Kássio",
+      "description": "Official YuE2 Python pipeline with pinned unquantized models and FLAC output.",
+      "version": "0.1.0",
+      "created": "2026-10-12",
+      "modified": "2026-10-12",
+      "software": "ComfyUI"
+    }
+  }
+}

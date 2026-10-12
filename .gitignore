@@ -1,0 +1,9 @@
+.venv/
+.venv-sheetsage/
+runtime/.tools/
+runtime/.cache/
+__pycache__/
+*.egg-info/
+build/
+dist/
+*.log

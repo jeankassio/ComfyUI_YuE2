@@ -1,0 +1,407 @@
+{
+  "format_version": 1,
+  "default_models": [
+    "yue2",
+    "vae",
+    "vae_legacy",
+    "sheetsage2",
+    "mert2"
+  ],
+  "models": {
+    "yue2": {
+      "repository": "m-a-p/YuE2-3B",
+      "revision": "8f24312f187763b9854adeec87e437e2b03bbff1",
+      "directory": "YuE2/YuE2-3B",
+      "files": [
+        {
+          "filename": "model.safetensors",
+          "bytes": 7261441640,
+          "sha256": "1d55c42c1a9875c34f5d736e15078449992b044e807ce2a138e6cf289a1e59e9"
+        },
+        {
+          "filename": "LICENSE",
+          "bytes": 20309,
+          "sha256": "060985741d20e70613b4c189c7de106cabd3fb2109fbbfb6d705c9d619417dd0"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 21898,
+          "sha256": "469ac88a01ef1be99a60ece8fdf1f3b81221e7c6943048782ed7487e06d159f0"
+        },
+        {
+          "filename": "THIRD_PARTY_NOTICES.md",
+          "bytes": 793,
+          "sha256": "14d3fd9f6fee86b4260b69b0979735b99ffec8c6b4db254567047a4215cd9af3"
+        },
+        {
+          "filename": "config.json",
+          "bytes": 959,
+          "sha256": "ad3477bbef890bf98ae196c1e4b44779494a6231c4ab66f32708eabadf265329"
+        },
+        {
+          "filename": "generation_config.json",
+          "bytes": 204,
+          "sha256": "ccc842772f029049fadf9b288393bcdd9f79271b361c0f1875ec1218e4ba5170"
+        },
+        {
+          "filename": "licenses/SnakeBeta-NVIDIA-MIT.txt",
+          "bytes": 1076,
+          "sha256": "da9858d516047d82096d01c112a61bd67f26d289039464d668a1d45f91738ecc"
+        },
+        {
+          "filename": "licenses/stable-audio-tools-MIT.txt",
+          "bytes": 1069,
+          "sha256": "a1fac33b7bcd791b74fb33aeb439f825e7277e239fc119fb7d2ab6f084a0c101"
+        },
+        {
+          "filename": "modeling_yue2.py",
+          "bytes": 32983,
+          "sha256": "62d2bd758c8fff1a0d64584a699343076fca9a7880db5d8e19263bc30ae79d7c"
+        },
+        {
+          "filename": "qwen.tiktoken",
+          "bytes": 2561218,
+          "sha256": "b2b1b8dfb5cc5f024bafc373121c6aba3f66f9a5a0269e243470a1de16a33186"
+        },
+        {
+          "filename": "weights_manifest.json",
+          "bytes": 179,
+          "sha256": "2296f82c29dcb11aeefde07e216403a32fc86c8f6da2ec15a70102abfd936a93"
+        },
+        {
+          "filename": "yue2_generation_config.json",
+          "bytes": 466,
+          "sha256": "203830cebde6e3644eb291925362990d198e66c3b6006cd11f1aaa21904bcc61"
+        }
+      ]
+    },
+    "vae": {
+      "repository": "m-a-p/YuE2-Vae",
+      "revision": "152733a19ad43aa67e367f9b5503ef8075bb5126",
+      "directory": "vae/YuE2/YuE2-Vae",
+      "files": [
+        {
+          "filename": "model.safetensors",
+          "bytes": 530512720,
+          "sha256": "807ce9d5149fa27c5ad3e6582058469852e908f6c5acc8c8aa338e7ab7751346"
+        },
+        {
+          "filename": "LICENSE",
+          "bytes": 20309,
+          "sha256": "060985741d20e70613b4c189c7de106cabd3fb2109fbbfb6d705c9d619417dd0"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 10434,
+          "sha256": "7c4359464599b946cbcb979a6143c81ea8f047023638b18d709702b8f97d52b2"
+        },
+        {
+          "filename": "THIRD_PARTY_NOTICES.md",
+          "bytes": 793,
+          "sha256": "14d3fd9f6fee86b4260b69b0979735b99ffec8c6b4db254567047a4215cd9af3"
+        },
+        {
+          "filename": "config.json",
+          "bytes": 1378,
+          "sha256": "f0191bb9694009956de44e0c361a6f1334760be4c8f848e599bde242a54a0970"
+        },
+        {
+          "filename": "licenses/SnakeBeta-NVIDIA-MIT.txt",
+          "bytes": 1076,
+          "sha256": "da9858d516047d82096d01c112a61bd67f26d289039464d668a1d45f91738ecc"
+        },
+        {
+          "filename": "licenses/stable-audio-tools-MIT.txt",
+          "bytes": 1069,
+          "sha256": "a1fac33b7bcd791b74fb33aeb439f825e7277e239fc119fb7d2ab6f084a0c101"
+        },
+        {
+          "filename": "modeling_vae.py",
+          "bytes": 25265,
+          "sha256": "b6578ff461e6be9fd079ca5ddf12893940f3b3338ff3435fceae89c466486f5a"
+        },
+        {
+          "filename": "weights_manifest.json",
+          "bytes": 178,
+          "sha256": "017d64a4d288217a43fcac3866a0e1d55f796fa891d4dfb6de0bd170ab750026"
+        }
+      ]
+    },
+    "vae_legacy": {
+      "repository": "m-a-p/YuE2-Vae-legacy",
+      "revision": "d0585a9cdbb36e8b6930046974500ad7078317ca",
+      "directory": "vae/YuE2/YuE2-Vae-legacy",
+      "files": [
+        {
+          "filename": "model.safetensors",
+          "bytes": 530512720,
+          "sha256": "b6d283628913bb41145ba99e2314eef613905ee95f690eb70e8212d5f4965044"
+        },
+        {
+          "filename": "LICENSE",
+          "bytes": 20309,
+          "sha256": "060985741d20e70613b4c189c7de106cabd3fb2109fbbfb6d705c9d619417dd0"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 10071,
+          "sha256": "4d0c5a22994319889a55a97f9facf81c129904b4b76f4deb705a535a6968dc88"
+        },
+        {
+          "filename": "THIRD_PARTY_NOTICES.md",
+          "bytes": 793,
+          "sha256": "14d3fd9f6fee86b4260b69b0979735b99ffec8c6b4db254567047a4215cd9af3"
+        },
+        {
+          "filename": "config.json",
+          "bytes": 1376,
+          "sha256": "a5053282e619d241155769b9b26751a5badd1f5644707ea3ebb0c6ed849a038c"
+        },
+        {
+          "filename": "licenses/SnakeBeta-NVIDIA-MIT.txt",
+          "bytes": 1076,
+          "sha256": "da9858d516047d82096d01c112a61bd67f26d289039464d668a1d45f91738ecc"
+        },
+        {
+          "filename": "licenses/stable-audio-tools-MIT.txt",
+          "bytes": 1069,
+          "sha256": "a1fac33b7bcd791b74fb33aeb439f825e7277e239fc119fb7d2ab6f084a0c101"
+        },
+        {
+          "filename": "modeling_vae.py",
+          "bytes": 25265,
+          "sha256": "b6578ff461e6be9fd079ca5ddf12893940f3b3338ff3435fceae89c466486f5a"
+        },
+        {
+          "filename": "weights_manifest.json",
+          "bytes": 178,
+          "sha256": "92652174b1218d24303dbad37cc420058de3d90229c218e0cf9a57c1114ed0aa"
+        }
+      ]
+    },
+    "sheetsage2": {
+      "repository": "m-a-p/SheetSage2",
+      "revision": "b83c3d79a6d98bcffaf8f9ed112c90aa887887bc",
+      "directory": "audio_encoders/YuE2/SheetSage2",
+      "files": [
+        {
+          "filename": "model.safetensors",
+          "bytes": 228738564,
+          "sha256": "b235f68091a5f5b644000f2b5acb57d1e70432aca2b34ab1b9cf27236e1f4274"
+        },
+        {
+          "filename": "LICENSE",
+          "bytes": 20000,
+          "sha256": "73593d6cad4ca80f3ab1448a4908f92ab802dfffe029561e3b12fa7d07c8b87c"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 17655,
+          "sha256": "46cece7664fc0b531d379311af7caf3bb6a46e89d9bf8a6b6bbbbf5e7318bc81"
+        },
+        {
+          "filename": "THIRD_PARTY_NOTICES.md",
+          "bytes": 589,
+          "sha256": "ab8b195c2c1475f254a04181a9841db2f2581c579b95858c78ee0040eb495a29"
+        },
+        {
+          "filename": "__init__.py",
+          "bytes": 39,
+          "sha256": "19539a965cabf22d08231688efc15547d005e6345745f48684c2f02d010f82fd"
+        },
+        {
+          "filename": "audio_sheetsage2.py",
+          "bytes": 4289,
+          "sha256": "ecce56e7bb8a08cbca9eb27a74d9aeff17f55e80efcc7c48f7436440f610ccc1"
+        },
+        {
+          "filename": "benchmark_results.json",
+          "bytes": 13616,
+          "sha256": "780bff9fb34f2ecc115f11625bece4b7444fffc66e0384e852c4d77d2d9eb178"
+        },
+        {
+          "filename": "chord_spelling_sheetsage2.py",
+          "bytes": 9330,
+          "sha256": "5a673e3c8caa6d0a4cda19227ce5587c611a2bf85343f6bc623e3d66d99ed8b1"
+        },
+        {
+          "filename": "config.json",
+          "bytes": 2060,
+          "sha256": "a986e63f5d831ecb823c11d19cfb371d763f25ae2e614ec9acd714c0b8bb87fd"
+        },
+        {
+          "filename": "configuration_mert2.py",
+          "bytes": 3860,
+          "sha256": "77b53ec9d7ee31a599d744fb006e812c7eeaf7390deb46e2f460cf8c17b00bd6"
+        },
+        {
+          "filename": "configuration_sheetsage2.py",
+          "bytes": 4119,
+          "sha256": "36d174331b3721d984608252830179bf3516d77b7225f413acc85bdf5efb3bec"
+        },
+        {
+          "filename": "durations_sheetsage2.py",
+          "bytes": 296,
+          "sha256": "abbc297b70b63a86f8509b1db74d0e85d7b46dcb83867cf33741c43f9d49db83"
+        },
+        {
+          "filename": "exports_sheetsage2.py",
+          "bytes": 10405,
+          "sha256": "11782cff50f96dac1bf1eedefed86b3cd60222e31b8456bee366eeb373b6a7e5"
+        },
+        {
+          "filename": "generation_sheetsage2.py",
+          "bytes": 24722,
+          "sha256": "b58dbbfaebfba2a441a79b8c36183f0e4956acdd3aaf7c655c559933b4c20afd"
+        },
+        {
+          "filename": "infer.py",
+          "bytes": 4253,
+          "sha256": "20e6b23c910bfdecf012a8ee8d45efcb31cb6cb21351da5921d95fb877e70de6"
+        },
+        {
+          "filename": "io_sheetsage2.py",
+          "bytes": 1830,
+          "sha256": "afb5b4d4a52b513b11cfdad40e7b9d2286dd4ff6585b89688dbb31b3d5376da6"
+        },
+        {
+          "filename": "labels_sheetsage2.py",
+          "bytes": 978,
+          "sha256": "4a80870695dd91da6070e7d8d0ce6b50f3bf71c3f629417a86cf12f4ef4f97e0"
+        },
+        {
+          "filename": "midi_sheetsage2.py",
+          "bytes": 4230,
+          "sha256": "32f80d13592c669e56683ebb4c415f13bf8278c8ad1fe43afa500347bed35099"
+        },
+        {
+          "filename": "modeling_mert2.py",
+          "bytes": 17081,
+          "sha256": "b1a3174e5649c4b26b0c90d8626f0adacfbbba111a58ed3bb72ad651945a2f5c"
+        },
+        {
+          "filename": "modeling_sheetsage2.py",
+          "bytes": 24664,
+          "sha256": "f1c45346dd76329fcbeadc5c721312836509326310c034634bc12d75263688bb"
+        },
+        {
+          "filename": "notation_sheetsage2.py",
+          "bytes": 55775,
+          "sha256": "f75f0e8b268cd9e9c622d791d3fd77d2e68ad355a4e67018c7e15aeb2bc05af7"
+        },
+        {
+          "filename": "pipeline_sheetsage2.py",
+          "bytes": 15022,
+          "sha256": "0ae572554ca375323e2aa4ea1fb25ba27e7f4d520c0ba5b101d74930c0a66c33"
+        },
+        {
+          "filename": "processing_sheetsage2.py",
+          "bytes": 5408,
+          "sha256": "ec5ef34ad61455437c750dd5ffb92142f7309638559e74114c639b57da56263c"
+        },
+        {
+          "filename": "processor_config.json",
+          "bytes": 277,
+          "sha256": "1eed73513a74029fe74c71faba70f8cff002ae7be23ac1c926125846d1b29817"
+        },
+        {
+          "filename": "render.py",
+          "bytes": 1927,
+          "sha256": "446b18e0ba7250c8584c14bda241f8d063083cd10b1432de82c3cf56736af9de"
+        },
+        {
+          "filename": "rendering_sheetsage2.py",
+          "bytes": 15862,
+          "sha256": "ddbcaf314139d67727cb5df6840d7d60d671d5c67f6b185a26b840df1e2d9288"
+        },
+        {
+          "filename": "requirements-render.txt",
+          "bytes": 58,
+          "sha256": "17990cc03ded2e6041b1ee4afcb3c0af3577cba534a4537685776c76fe0642c1"
+        },
+        {
+          "filename": "requirements.txt",
+          "bytes": 190,
+          "sha256": "fc3172be36722d75ae679ec9ffcf100baaa3d6ce4b6fdfefa9b24608810fc6a2"
+        },
+        {
+          "filename": "schema_sheetsage2.py",
+          "bytes": 3893,
+          "sha256": "3ee069f0d4dcfb8080f730c43676318d471ab6b3cfef86c6c225aa63a9db182f"
+        },
+        {
+          "filename": "setup_render.py",
+          "bytes": 1540,
+          "sha256": "8ee1004067f8e50443005a761d86435337f6ee71eeabf447d543eb5f3ad5561d"
+        },
+        {
+          "filename": "tensors_sheetsage2.py",
+          "bytes": 4645,
+          "sha256": "51f72b51ed5a22c751d5adf915198490b1a95ec8959fcf9a38ee71b4444fc8b3"
+        },
+        {
+          "filename": "tokenization_sheetsage2.py",
+          "bytes": 30043,
+          "sha256": "2ad9f7734e3d9f750fe575f22fd9ec03a9a4ab52497a6314e76f53ed9024fa75"
+        }
+      ]
+    },
+    "mert2": {
+      "repository": "m-a-p/MERT-v2-FullSong",
+      "revision": "d8ba1c745e733b3908ce6ad16ebeb17ac7600a42",
+      "directory": "audio_encoders/YuE2/MERT-v2-FullSong",
+      "files": [
+        {
+          "filename": "model.safetensors",
+          "bytes": 2529812848,
+          "sha256": "e6dd2ab187d6dd62b6521cd7d8f932e237acf0c5757745a7232082e28391350d"
+        },
+        {
+          "filename": "LICENSE",
+          "bytes": 20000,
+          "sha256": "73593d6cad4ca80f3ab1448a4908f92ab802dfffe029561e3b12fa7d07c8b87c"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 10419,
+          "sha256": "2b025166f640a0416b5544f4c3775aced46bf0c467af4ef7b302d52496335da6"
+        },
+        {
+          "filename": "THIRD_PARTY_NOTICES.md",
+          "bytes": 541,
+          "sha256": "ce8fd578969f1bdad9a0be5e20cab0251dc4253bd4dbfaa9abeb1c11d68bafdc"
+        },
+        {
+          "filename": "config.json",
+          "bytes": 882,
+          "sha256": "f2e194895f58be3ddba327255db129ff0e3bee550cc0ecf08e4d22d79ce3bca3"
+        },
+        {
+          "filename": "configuration_mert2.py",
+          "bytes": 3860,
+          "sha256": "77b53ec9d7ee31a599d744fb006e812c7eeaf7390deb46e2f460cf8c17b00bd6"
+        },
+        {
+          "filename": "marble_results.json",
+          "bytes": 8997,
+          "sha256": "ced741a3d9684b551a2569c2206ba86911addd07a42df72d65b74e4288d4bd0e"
+        },
+        {
+          "filename": "modeling_mert2.py",
+          "bytes": 17081,
+          "sha256": "b1a3174e5649c4b26b0c90d8626f0adacfbbba111a58ed3bb72ad651945a2f5c"
+        },
+        {
+          "filename": "preprocessor_config.json",
+          "bytes": 215,
+          "sha256": "fc7337f113b71062b8efd03f8a43a07aa769ce85c6a53fdc0b3bb90c299fe63f"
+        },
+        {
+          "filename": "weights_manifest.json",
+          "bytes": 241,
+          "sha256": "413e2ddfa71ae5bb364bfd15364e221249111e14c2f0843ea6162afb776a8300"
+        }
+      ]
+    }
+  }
+}
