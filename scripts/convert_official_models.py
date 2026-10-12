@@ -35,7 +35,7 @@ def adapt(models_dir):
         target = models_dir / relative
         if not source.is_dir():
             if key in ("yue2", "vae"):
-                raise FileNotFoundError(f"Run download-models.bat first: {source}")
+                raise FileNotFoundError(f"Download the official models first (scripts/download_models.py --download): {source}")
             continue
         for artifact in model["files"]:
             src = source / artifact["filename"]

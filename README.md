@@ -30,7 +30,35 @@ The adapter uses NumPy, SoundFile and tqdm in ComfyUI's existing Python. If thos
 
 On Windows, keep `backend=torch-eager`: this official Torch distribution lacks the FlashAttention kernel required by the CUDA Graph backend. Eager retains the official weights, precision and algorithms. CUDA indices refer to devices visible to the process; use `--cuda-device all` to expose both GPUs in ComfyUI.
 
-On Linux/macOS, run the corresponding `scripts/setup_runtime.py`, `scripts/download_models.py --download`, `scripts/convert_official_models.py` and, for covers, `scripts/setup_sheetsage.py` with your Python. The official recommended starting point is **Linux, an NVIDIA GPU supporting BF16 and 24 GB VRAM**, one generation at a time. Windows uses the official Torch eager path in the examples. CPU/MPS and smaller GPU budgets are exposed where the engine supports them; performance and available memory still depend on the machine. The optional vLLM backend requires Linux and `setup_runtime.py --fast`.
+## Install on Linux and macOS
+
+Open a terminal in `ComfyUI/custom_nodes/ComfyUI_YuE2`. A working Python 3 with `venv`/`pip` is needed for bootstrap; on Debian/Ubuntu, install `python3-venv` if the installer reports it missing. The launchers also find ComfyUI's `.venv` or `venv` automatically. Run:
+
+```sh
+sh setup-runtime.sh
+sh scripts/download-models.sh
+sh convert-models.sh
+# Optional: transcription for audio-to-cover
+sh scripts/setup-sheetsage.sh
+```
+
+The shell scripts preserve arguments, work from any current directory and use isolated environments. The download launcher explicitly downloads by default; `--check` verifies local files offline:
+
+```sh
+sh scripts/download-models.sh --models yue2 vae
+sh scripts/download-models.sh --check
+```
+
+| Platform | Runtime installation and node settings |
+|---|---|
+| Linux with NVIDIA | Official CUDA 12.8 Torch wheel for YuE2; CUDA 12.6 Torch/Torchaudio for SheetSage2. Select the available CUDA device. The official recommended starting point is a BF16-capable GPU with 24 GB VRAM. |
+| Linux without CUDA | Add `--cpu` to both setup launchers and select `device=cpu` in the nodes. |
+| macOS with Apple Silicon | Official macOS wheels from PyPI, including CPU/MPS. In Model Loader select `device=auto` or `mps` and `backend=torch-eager`; for SheetSage2 Transcribe select `cpu`. MPS BF16 requires macOS 14 or later. |
+| macOS with Intel/translated x86 Python | The pinned official Torch versions have no Intel macOS wheels; setup reports this explicitly. Use native ARM64 Python on Apple Silicon. |
+
+The setup scripts keep Python and dependencies local, including a private `uv` bootstrap when needed, without changing system Python or ComfyUI's dependencies. Both accept `--torch-index-url URL` for an explicit wheel-index override. `--cpu` on macOS uses the same official CPU/MPS distribution; select `cpu` in the node to use CPU execution. The optional vLLM backend is Linux GPU only: `sh setup-runtime.sh --fast`.
+
+Restart ComfyUI after installation and load a workflow from `example_workflows`. Linux/macOS setup choices and shell launchers were tested without installing on those systems; generation has been validated on Windows/RTX 3090.
 
 ## Models and folders
 
@@ -58,7 +86,7 @@ Inference runs with local-only Hugging Face settings. Downloads occur only when 
 
 ## Example workflows
 
-Each example has a **ComfyUI v1.0 canvas JSON** and a matching **`.api.json`** prompt graph in [example_workflows/](example_workflows/).
+The **ComfyUI v1.0 canvas JSON** examples are in [example_workflows/](example_workflows/).
 
 | Workflow | Use |
 |---|---|
@@ -69,7 +97,7 @@ Each example has a **ComfyUI v1.0 canvas JSON** and a matching **`.api.json`** p
 
 For workflow 04, **upload and select a real source song in Load Audio before queuing**. `select-source-audio.wav` is a placeholder, not a bundled recording. Set target lyrics/style in Text Encode. Keep `mode=melody` in Transcribe and `cot=melody` in Text Encode for a cover with adaptable accompaniment.
 
-The text sample comes from upstream [examples/song.json](https://github.com/multimodal-art-projection/YuE/blob/1647252d68b70cbead046ffd3f7caf036dde47ee/examples/song.json), retained as [source-song.json](example_workflows/source-song.json). [original-melody.abc](example_workflows/original-melody.abc) is a new short demonstration score, not a transcription of a commercial song. Edit its pitches, durations, harmony or tempo deliberately; a supplied score conditions a new performance.
+The text sample comes from upstream [examples/song.json](https://github.com/multimodal-art-projection/YuE/blob/1647252d68b70cbead046ffd3f7caf036dde47ee/examples/song.json). Workflow 03 contains a new short demonstration composition in its ABC Score Input node. Edit its pitches, durations, harmony or tempo deliberately; a supplied score conditions a new performance.
 
 ## Nodes and official controls
 

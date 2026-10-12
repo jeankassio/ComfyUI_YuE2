@@ -94,7 +94,8 @@ def run(action, payload, on_progress=None, check_cancelled=None):
     python = ROOT / environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     worker = ROOT / "runtime" / ("sheetsage_worker.py" if action == "transcribe" else "worker.py")
     if not python.is_file():
-        setup = "setup-sheetsage.bat" if action == "transcribe" else "setup-runtime.bat"
+        setup = "scripts/setup-sheetsage" if action == "transcribe" else "setup-runtime"
+        setup += ".bat" if os.name == "nt" else ".sh"
         raise RuntimeError(f"The isolated runtime is missing. Run {setup} in ComfyUI_YuE2 first.")
     artifact_root = Path(payload.get("artifact_root", Path(tempfile.gettempdir()) / "comfyui-yue2"))
     artifact_root.mkdir(parents=True, exist_ok=True)

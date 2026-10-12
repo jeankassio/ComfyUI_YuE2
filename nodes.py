@@ -28,7 +28,7 @@ DEFAULT_CONFIG = {
 def model_index():
     path = Path(folder_paths.models_dir) / "diffusion_models/YuE2/official_models.json"
     if not path.is_file():
-        raise FileNotFoundError("YuE2 official models are not adapted yet. Run download-models.bat, then convert-models.bat.")
+        raise FileNotFoundError("YuE2 official models are not adapted yet. Run the model download and conversion launchers for your platform.")
     return json.loads(path.read_text(encoding="utf-8"))["models"]
 
 
@@ -36,7 +36,7 @@ def model_directory(key):
     root = Path(folder_paths.models_dir).resolve()
     models = model_index()
     if key not in models:
-        raise FileNotFoundError(f"Official model '{key}' is missing. Download it and run convert-models.bat.")
+        raise FileNotFoundError(f"Official model '{key}' is missing. Download it and run the model conversion launcher for your platform.")
     path = (root / models[key]["directory"]).resolve()
     if not path.is_relative_to(root) or not (path / "config.json").is_file() or not (path / "model.safetensors").is_file():
         raise ValueError(f"Invalid official model directory: {key}")

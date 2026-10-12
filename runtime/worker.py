@@ -83,9 +83,9 @@ def check_models(payload):
     for key in ("model_dir", "vae_dir"):
         directory = Path(payload[key])
         if not (directory / "config.json").is_file() or not any(directory.glob("*.safetensors")):
-            raise FileNotFoundError(f"Official weights are missing from {directory}. Run download-models.bat first.")
+            raise FileNotFoundError(f"Official weights are missing from {directory}. Run the model download launcher for your platform.")
     if not (Path(payload["model_dir"]) / "qwen.tiktoken").is_file():
-        raise FileNotFoundError("The official qwen.tiktoken tokenizer is missing. Run download-models.bat first.")
+        raise FileNotFoundError("The official qwen.tiktoken tokenizer is missing. Run the model download launcher for your platform.")
     if payload.get("backend") == "vllm" and sys.platform == "win32":
         raise RuntimeError("The official vLLM backend is Linux-only. Select torch or torch-eager on Windows.")
     device = payload.get("device", "auto")

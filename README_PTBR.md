@@ -30,7 +30,35 @@ O adaptador usa NumPy, SoundFile e tqdm no Python existente do ComfyUI. Se estiv
 
 No Windows, mantenha `backend=torch-eager`: a distribuição oficial de Torch usada aqui não inclui o kernel FlashAttention exigido pelo backend CUDA Graph. O modo eager preserva pesos, precisão e algoritmo oficiais. Os índices CUDA correspondem às GPUs visíveis ao processo; para expor ambas no ComfyUI, use `--cuda-device all`.
 
-No Linux/macOS, execute os scripts correspondentes: `scripts/setup_runtime.py`, `scripts/download_models.py --download`, `scripts/convert_official_models.py` e, para covers, `scripts/setup_sheetsage.py`. O ponto de partida oficialmente recomendado é **Linux, GPU NVIDIA com suporte a BF16 e 24 GB de VRAM**, com uma geração por vez. Os exemplos no Windows usam o backend Torch eager oficial. CPU/MPS e orçamentos menores de GPU são expostos quando suportados pelo motor; desempenho e memória disponível dependem da máquina. O backend opcional vLLM exige Linux e `setup_runtime.py --fast`.
+## Instalação no Linux e macOS
+
+Abra um terminal em `ComfyUI/custom_nodes/ComfyUI_YuE2`. O bootstrap precisa de Python 3 com `venv`/`pip`; no Debian/Ubuntu, instale `python3-venv` se o instalador informar sua ausência. Os launchers também encontram automaticamente o `.venv` ou `venv` do ComfyUI. Execute:
+
+```sh
+sh setup-runtime.sh
+sh scripts/download-models.sh
+sh convert-models.sh
+# Opcional: transcrição para covers a partir de áudio
+sh scripts/setup-sheetsage.sh
+```
+
+Os scripts preservam os argumentos, funcionam a partir de qualquer diretório e usam ambientes isolados. O launcher de download baixa os arquivos por padrão; `--check` verifica os arquivos locais sem rede:
+
+```sh
+sh scripts/download-models.sh --models yue2 vae
+sh scripts/download-models.sh --check
+```
+
+| Plataforma | Instalação e configuração dos nodes |
+|---|---|
+| Linux com NVIDIA | Torch oficial CUDA 12.8 para YuE2; Torch/Torchaudio CUDA 12.6 para SheetSage2. Selecione o dispositivo CUDA disponível. O ponto de partida oficialmente recomendado é GPU com suporte a BF16 e 24 GB de VRAM. |
+| Linux sem CUDA | Adicione `--cpu` aos dois launchers de setup e selecione `device=cpu` nos nodes. |
+| macOS com Apple Silicon | Pacotes oficiais para macOS pelo PyPI, incluindo CPU/MPS. No Model Loader, selecione `device=auto` ou `mps` e `backend=torch-eager`; no SheetSage2 Transcribe, selecione `cpu`. BF16 no MPS exige macOS 14 ou posterior. |
+| macOS Intel/Python x86 traduzido | As versões oficiais fixadas de Torch não têm wheels para macOS Intel; o setup informa isso claramente. No Apple Silicon, use Python ARM64 nativo. |
+
+Os instaladores mantêm Python e dependências locais, incluindo um bootstrap privado de `uv` quando necessário, sem modificar o Python do sistema ou as dependências do ComfyUI. Ambos aceitam `--torch-index-url URL` para escolher explicitamente outro índice de wheels. No macOS, `--cpu` usa a mesma distribuição oficial CPU/MPS; selecione `cpu` no node para execução em CPU. O backend opcional vLLM exige Linux com GPU: `sh setup-runtime.sh --fast`.
+
+Após instalar, reinicie o ComfyUI e abra um workflow de `example_workflows`. A seleção de pacotes Linux/macOS e os launchers foram testados sem instalar nesses sistemas; a geração foi validada no Windows/RTX 3090.
 
 ## Modelos e pastas
 
@@ -58,7 +86,7 @@ A inferência funciona com o Hugging Face em modo local. Os downloads só aconte
 
 ## Workflows de exemplo
 
-Cada exemplo possui um **JSON de tela ComfyUI v1.0** e um **`.api.json`** correspondente em [example_workflows/](example_workflows/).
+Os exemplos em **JSON de tela ComfyUI v1.0** estão em [example_workflows/](example_workflows/).
 
 | Workflow | Uso |
 |---|---|
@@ -69,7 +97,7 @@ Cada exemplo possui um **JSON de tela ComfyUI v1.0** e um **`.api.json`** corres
 
 No workflow 04, **envie e selecione uma música real no Load Audio antes de executar**. `select-source-audio.wav` é um nome de exemplo; não há gravação incluída com esse nome. Preencha a letra/estilo de destino no Text Encode. Use `mode=melody` no Transcribe e `cot=melody` no Text Encode para permitir que o acompanhamento se adapte ao cover.
 
-O texto de exemplo vem do [examples/song.json oficial](https://github.com/multimodal-art-projection/YuE/blob/1647252d68b70cbead046ffd3f7caf036dde47ee/examples/song.json), preservado em [source-song.json](example_workflows/source-song.json). [original-melody.abc](example_workflows/original-melody.abc) é uma composição nova e curta para demonstração, não uma transcrição de música comercial. Edite notas, durações, harmonia ou andamento conforme sua intenção; a partitura condiciona uma nova interpretação.
+O texto de exemplo vem do [examples/song.json oficial](https://github.com/multimodal-art-projection/YuE/blob/1647252d68b70cbead046ffd3f7caf036dde47ee/examples/song.json). O workflow 03 contém uma composição nova e curta no node ABC Score Input. Edite notas, durações, harmonia ou andamento conforme sua intenção; a partitura condiciona uma nova interpretação.
 
 ## Nodes e controles oficiais
 
