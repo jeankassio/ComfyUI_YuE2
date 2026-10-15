@@ -137,6 +137,8 @@ Before launching the separate engine, the adapter releases cached ComfyUI models
 
 Temporary generation artifacts are kept under `ComfyUI/temp/yue2/`, including the score, exact plan, semantic tokens, latents and generation metadata. Reports include token-limit truncation and timings. Playable audio can still have `truncated=true`; inspect the report before treating it as a complete song.
 
+Stage nodes exchange only an artifact folder ID, resolved under ComfyUI's configured temporary directory. Model locations are resolved from registered official model keys, never from paths in incoming node dictionaries. Absolute, drive, UNC and traversal paths are rejected, as are symbolic links and Windows junctions in artifact/model paths. After updating, restart ComfyUI and rerun earlier stages to replace cached outputs from the previous format.
+
 Reuse an unchanged `YUE2_PLAN` directly between stages. To edit a composition, copy/edit its ABC and submit it as a new request. To compare listening and legacy decoders, decode the **same latents** twice; do not generate two unrelated songs. Seeds aid comparison, but device/runtime/settings changes can affect reproducibility. Each queue execution generates one candidate; published best-of-N scores refer to a separate candidate-selection evaluation.
 
 SheetSage2 covers regenerate a performance from a musical score. **They do not clone a speaker from a voice recording, nor replace only the singer while preserving the source waveform.** This node does not add a speaker-identity model to YuE2.

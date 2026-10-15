@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 import traceback
 
+from paths import artifact_directory, model_directory
 
 NODE_ROOT = Path(__file__).resolve().parents[1]
 JSON_OUTPUT = sys.stdout
@@ -38,7 +39,10 @@ def verify_model(directory, model_name):
 
 
 def transcribe(payload):
-    cancel_file = payload.get("cancel_file")
+    if payload.get("model_key") != "sheetsage2" or payload.get("mert_key") != "mert2":
+        raise ValueError("Select the official SheetSage2 transcription models")
+    artifact_dir = artifact_directory(payload["artifact_root"], payload.get("artifact_id"))
+    cancel_file = artifact_dir / ".cancel"
     check_cancelled(cancel_file)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -47,11 +51,9 @@ def transcribe(payload):
     import torch
     from transformers import AutoModel
 
-    model_dir = Path(payload["model_dir"]).resolve()
-    mert_dir = Path(payload["mert_dir"]).resolve()
+    model_dir = Path(model_directory(payload["models_root"], payload["model_key"]))
+    mert_dir = Path(model_directory(payload["models_root"], payload["mert_key"]))
     audio_path = Path(payload["audio_path"]).resolve()
-    artifact_dir = Path(payload["artifact_dir"]).resolve()
-    artifact_dir.mkdir(parents=True, exist_ok=True)
     check_cancelled(cancel_file)
     emit("progress", phase="Verifying SheetSage2 models", completed=0, total=2, status="running")
     verify_model(model_dir, "sheetsage2")
@@ -116,7 +118,7 @@ def transcribe(payload):
     metadata["mert_directory"] = str(mert_dir)
     metadata["device"] = device
     emit("progress", phase="SheetSage2 transcription", completed=1, total=1, status="completed")
-    return {"artifact_dir": str(artifact_dir), "abc": abc, "metadata": metadata}
+    return {"artifact_id": artifact_dir.name, "abc": abc, "metadata": metadata}
 
 
 def main():

@@ -13,6 +13,7 @@ import comfy.utils
 import folder_paths
 
 from .backend import run
+from .runtime.paths import artifact_directory, model_directory as resolve_model_directory
 
 PLUGIN_DIR = Path(__file__).resolve().parent
 CATEGORY = "audio/YuE2 Official"
@@ -25,22 +26,8 @@ DEFAULT_CONFIG = {
 }
 
 
-def model_index():
-    path = Path(folder_paths.models_dir) / "diffusion_models/YuE2/official_models.json"
-    if not path.is_file():
-        raise FileNotFoundError("YuE2 official models are not adapted yet. Run the model download and conversion launchers for your platform.")
-    return json.loads(path.read_text(encoding="utf-8"))["models"]
-
-
 def model_directory(key):
-    root = Path(folder_paths.models_dir).resolve()
-    models = model_index()
-    if key not in models:
-        raise FileNotFoundError(f"Official model '{key}' is missing. Download it and run the model conversion launcher for your platform.")
-    path = (root / models[key]["directory"]).resolve()
-    if not path.is_relative_to(root) or not (path / "config.json").is_file() or not (path / "model.safetensors").is_file():
-        raise ValueError(f"Invalid official model directory: {key}")
-    return str(path)
+    return resolve_model_directory(folder_paths.models_dir, key)
 
 
 def options_payload(options):
@@ -57,9 +44,26 @@ def execute(action, models, options=None, **values):
         completed = min(total, max(0, int(event.get("completed") or 0)))
         progress.update_absolute(completed, total)
 
-    payload = {**models, **options_payload(options), **values,
-               "artifact_root": str(Path(folder_paths.get_temp_directory()) / "yue2")}
-    device = models.get("device", "auto")
+    if action == "transcribe":
+        if models.get("model_key") != "sheetsage2" or models.get("mert_key") != "mert2":
+            raise ValueError("Select the official SheetSage2 transcription models")
+        model_keys = ("model_key", "mert_key")
+    else:
+        if models.get("model_key") != "yue2" or models.get("vae_key") not in ("vae", "vae_legacy"):
+            raise ValueError("Run the YuE2 Model Loader and select an official model and decoder")
+        model_keys = ("model_key", "vae_key")
+    for key in model_keys:
+        model_directory(models[key])
+    artifact_root = Path(folder_paths.get_temp_directory()) / "yue2"
+    if action in {"semantic", "synthesize", "decode"}:
+        artifact_directory(artifact_root, values.get("input_artifact"))
+    runtime_keys = ("device", "memory_budget_gib", "backend", "quantization", "offload_ar", "vae_core_frames", "verify_hashes")
+    settings = options_payload(options)
+    payload = {**{key: models[key] for key in runtime_keys if key in models},
+               **{key: settings[key] for key in ("config", "decode_full") if key in settings},
+               **values, **{key: models[key] for key in model_keys},
+               "artifact_root": str(artifact_root), "models_root": str(folder_paths.models_dir)}
+    device = payload.get("device", "auto")
     if device == "auto":
         device = "cuda:0" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     target = torch.device(device)
@@ -78,11 +82,9 @@ def report(result):
 
 
 def audio_result(result):
-    if result.get("audio_array"):
-        audio = np.load(result["audio_array"], allow_pickle=False)
-        sample_rate = result.get("sample_rate", 48000)
-    else:
-        audio, sample_rate = sf.read(result["audio_path"], dtype="float32", always_2d=True)
+    directory = artifact_directory(Path(folder_paths.get_temp_directory()) / "yue2", result.get("artifact_id"))
+    audio = np.load(directory / "audio.npy", allow_pickle=False)
+    sample_rate = result["sample_rate"]
     if audio.ndim != 2 or audio.shape[1] != 2 or sample_rate != 48000 or not np.isfinite(audio).all():
         raise ValueError("Official YuE2 runtime returned invalid stereo 48 kHz audio")
     return {"waveform": torch.from_numpy(np.ascontiguousarray(audio.T, dtype=np.float32)).unsqueeze(0),
@@ -115,7 +117,10 @@ class YuE2ModelLoader:
             raise ValueError("Select an official YuE2 model and decoder")
         if backend not in {"torch", "torch-eager", "vllm"} or quantization not in {"none", "fp8"}:
             raise ValueError("Invalid official runtime option")
-        return ({"model_dir": model_directory("yue2"), "vae_dir": model_directory("vae" if vae == "YuE2-Vae" else "vae_legacy"),
+        vae_key = "vae" if vae == "YuE2-Vae" else "vae_legacy"
+        model_directory("yue2")
+        model_directory(vae_key)
+        return ({"model_key": "yue2", "vae_key": vae_key,
                  "device": device, "memory_budget_gib": memory_budget_gib, "backend": backend,
                  "quantization": quantization, "offload_ar": offload_ar,
                  "vae_core_frames": vae_core_frames, "verify_hashes": verify_hashes},)
@@ -215,7 +220,7 @@ class YuE2Plan:
 
     def plan(self, models, text, options=None):
         result = execute("plan", models, options, request=text)
-        return (result, result.get("abc") or "", report(result))
+        return ({"artifact_id": result["artifact_id"]}, result.get("abc") or "", report(result))
 
 
 class YuE2SemanticTokens:
@@ -229,8 +234,8 @@ class YuE2SemanticTokens:
     CATEGORY = CATEGORY
 
     def generate(self, models, plan, options=None):
-        result = execute("semantic", models, options, input_dir=plan["plan_dir"])
-        return (result, report(result))
+        result = execute("semantic", models, options, input_artifact=plan.get("artifact_id"))
+        return ({"artifact_id": result["artifact_id"]}, report(result))
 
 
 class YuE2Synthesize:
@@ -244,8 +249,8 @@ class YuE2Synthesize:
     CATEGORY = CATEGORY
 
     def synthesize(self, models, semantic, options=None):
-        result = execute("synthesize", models, options, input_dir=semantic["semantic_dir"])
-        return (result, report(result))
+        result = execute("synthesize", models, options, input_artifact=semantic.get("artifact_id"))
+        return ({"artifact_id": result["artifact_id"]}, report(result))
 
 
 class YuE2Decode:
@@ -259,7 +264,7 @@ class YuE2Decode:
     CATEGORY = CATEGORY
 
     def decode(self, models, latents, options=None):
-        result = execute("decode", models, options, input_dir=latents["artifact_dir"])
+        result = execute("decode", models, options, input_artifact=latents.get("artifact_id"))
         return (audio_result(result), report(result))
 
 
@@ -325,7 +330,7 @@ class YuE2Transcribe:
                                      "render_parts": render_parts}
             if prompts.strip():
                 transcription_options["prompts"] = [item.strip() for item in prompts.split(",") if item.strip()]
-            result = execute("transcribe", {"model_dir": model_directory("sheetsage2"), "mert_dir": model_directory("mert2"),
+            result = execute("transcribe", {"model_key": "sheetsage2", "mert_key": "mert2",
                              "device": device}, audio_path=str(path), melody_only=mode == "melody", dtype=dtype,
                              preset=preset, max_seconds=None if max_seconds == 0 else max_seconds,
                              overlap_seconds=None if automatic_window_settings else overlap_seconds,

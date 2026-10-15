@@ -102,7 +102,7 @@ def run(action, payload, on_progress=None, check_cancelled=None):
     artifact_dir = Path(tempfile.mkdtemp(prefix=action + "-", dir=artifact_root))
     cancel_file = artifact_dir / ".cancel"
     request_file = artifact_root / (artifact_dir.name + ".request.json")
-    request = {**payload, "action": action, "artifact_dir": str(artifact_dir), "cancel_file": str(cancel_file)}
+    request = {**payload, "action": action, "artifact_id": artifact_dir.name}
     request_file.write_text(json.dumps(request, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     environment_vars = os.environ.copy()
     environment_vars.update({

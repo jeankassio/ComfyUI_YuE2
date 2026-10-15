@@ -14,6 +14,7 @@ from yue2.protocol import GenerationConfig, SongRequest
 from yue2.storage import identity
 
 from artifacts import load_latents, load_semantic, save_latents, save_semantic
+from paths import artifact_directory, model_directory
 
 
 JSON_STREAM = sys.stdout
@@ -80,11 +81,11 @@ class ComfyProgressPipeline(YuE2Pipeline):
 
 
 def check_models(payload):
-    for key in ("model_dir", "vae_dir"):
-        directory = Path(payload[key])
-        if not (directory / "config.json").is_file() or not any(directory.glob("*.safetensors")):
-            raise FileNotFoundError(f"Official weights are missing from {directory}. Run the model download launcher for your platform.")
-    if not (Path(payload["model_dir"]) / "qwen.tiktoken").is_file():
+    if payload.get("model_key") != "yue2" or payload.get("vae_key") not in ("vae", "vae_legacy"):
+        raise ValueError("Select an official YuE2 model and decoder")
+    model_dir = model_directory(payload["models_root"], payload["model_key"])
+    vae_dir = model_directory(payload["models_root"], payload["vae_key"])
+    if not (Path(model_dir) / "qwen.tiktoken").is_file():
         raise FileNotFoundError("The official qwen.tiktoken tokenizer is missing. Run the model download launcher for your platform.")
     if payload.get("backend") == "vllm" and sys.platform == "win32":
         raise RuntimeError("The official vLLM backend is Linux-only. Select torch or torch-eager on Windows.")
@@ -92,23 +93,26 @@ def check_models(payload):
     uses_cuda = str(device).startswith("cuda") or (device == "auto" and torch.cuda.is_available())
     if uses_cuda and payload.get("backend", "torch") == "torch" and payload.get("quantization", "none") == "none" and not torch.backends.cuda.is_flash_attention_available():
         raise RuntimeError("This PyTorch build lacks the FlashAttention kernel required by the official CUDA-graph backend. Select torch-eager; it preserves official BF16 weights, sampling and acoustic generation.")
+    return model_dir, vae_dir
 
 
 def execute(payload):
+    action = payload["action"]
+    if action not in {"generate", "plan", "semantic", "synthesize", "decode"}:
+        raise ValueError(f"Unsupported YuE2 action: {action}")
+    output = artifact_directory(payload["artifact_root"], payload.get("artifact_id"))
+    source = artifact_directory(payload["artifact_root"], payload.get("input_artifact")) if action in {"semantic", "synthesize", "decode"} else None
     torch.set_num_threads(min(4, torch.get_num_threads()))
-    check_models(payload)
-    output = Path(payload["artifact_dir"])
-    output.mkdir(parents=True, exist_ok=True)
-    cancelled = lambda: Path(payload["cancel_file"]).exists()
+    model_dir, vae_dir = check_models(payload)
+    cancelled = lambda: (output / ".cancel").exists()
     if cancelled():
         raise InterruptedError("Cancelled before model loading")
-    action = payload["action"]
     config = GenerationConfig.from_dict(payload.get("config", {}))
     options = {key: payload[key] for key in ("device", "memory_budget_gib", "backend", "quantization", "offload_ar", "vae_core_frames") if key in payload}
-    result = {"artifact_dir": str(output)}
+    result = {"artifact_id": output.name}
     start = time.perf_counter()
     with ComfyProgressPipeline.from_pretrained(
-        payload["model_dir"], vae=payload["vae_dir"], local_files_only=True,
+        model_dir, vae=vae_dir, local_files_only=True,
         generation_config=config, progress=True, verify_hashes=payload.get("verify_hashes", True), **options,
     ) as pipe:
         if action in {"generate", "plan"}:
@@ -116,32 +120,30 @@ def execute(payload):
             plan = pipe.plan(request=request, cancelled=cancelled)
             plan.save(output)
         else:
-            plan = SymbolicPlan.load(payload["input_dir"])
+            plan = SymbolicPlan.load(source)
             request = plan.request
-        result.update({"plan_dir": str(output), "abc": plan.abc or ""})
+        result["abc"] = plan.abc or ""
         if action == "plan":
             metadata = {"truncated": {"abc": plan.truncated}, "timing": plan.timing}
         else:
             if action in {"generate", "semantic"}:
                 semantic = pipe.generate_semantic(plan, cancelled=cancelled)
             elif action in {"synthesize", "decode"}:
-                semantic = load_semantic(payload["input_dir"])
+                semantic = load_semantic(source)
             else:
                 raise ValueError(f"Unsupported YuE2 action: {action}")
             save_semantic(semantic, output)
-            result["semantic_dir"] = str(output)
             metadata = {"truncated": {"abc": plan.truncated, "semantic": semantic.truncated},
                         "semantic_frames": len(semantic.tokens), "duration_seconds": len(semantic.tokens) / 25,
                         "timing": {"abc": plan.timing, "semantic": semantic.timing}}
             if action in {"generate", "synthesize", "decode"}:
                 if action == "decode":
-                    latents, semantic, nar_timing = load_latents(payload["input_dir"])
+                    latents, semantic, nar_timing = load_latents(source)
                 else:
                     nar_start = time.perf_counter()
                     latents = pipe.synthesize(semantic, cancelled=cancelled)
                     nar_timing = {"nar_seconds": time.perf_counter() - nar_start}
                 save_latents(latents, semantic, output, nar_timing)
-                result["latent_path"] = str(output / "latent.npy")
                 metadata["timing"].update(nar_timing)
                 if action in {"generate", "decode"}:
                     if cancelled():
@@ -159,7 +161,7 @@ def execute(payload):
                     official_result = song.save_artifacts(output)
                     np.save(output / "audio.npy", audio)
                     metadata.update({"official_result": official_result, "audio_seconds": len(audio) / 48000})
-                    result.update({"audio_path": str(output / "audio.flac"), "audio_array": str(output / "audio.npy"), "sample_rate": 48000})
+                    result["sample_rate"] = 48000
         settings = pipe.effective_config(request)
         if payload.get("decode_full", False):
             settings["vae_decode"] = "full"

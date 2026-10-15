@@ -78,8 +78,9 @@ class ChildProcessLifecycle(unittest.TestCase):
         self.worker.write_text(
             "import json,sys\nfrom pathlib import Path\n"
             "request=Path(sys.argv[2]); payload=json.loads(request.read_text())\n"
-            "files=[p.name for p in Path(payload['artifact_dir']).rglob('*') if p.is_file()]\n"
-            "print(json.dumps({'event':'result','result':{'files':files,'request_outside':request.parent!=Path(payload['artifact_dir'])}}),flush=True)\n",
+            "directory=Path(payload['artifact_root'])/payload['artifact_id']\n"
+            "files=[p.name for p in directory.rglob('*') if p.is_file()]\n"
+            "print(json.dumps({'event':'result','result':{'files':files,'request_outside':request.parent!=directory}}),flush=True)\n",
             encoding="utf-8")
         with patch.object(backend, "ROOT", self.root), patch.object(backend.subprocess, "Popen", self.launch):
             result = backend.run("generate", {"artifact_root": str(self.root / "artifacts")})

@@ -137,6 +137,8 @@ Antes de iniciar o motor separado, o adaptador libera os modelos do cache ComfyU
 
 Os artefatos temporários ficam em `ComfyUI/temp/yue2/`: partitura, plano exato, tokens semânticos, latentes e metadados de geração. Os relatórios incluem truncamento por limite de tokens e tempos. Um áudio reproduzível ainda pode ter `truncated=true`; confira o relatório antes de considerar a música completa.
 
+Os nodes de etapas trocam apenas o ID da pasta do artefato, resolvido dentro do diretório temporário configurado no ComfyUI. Os caminhos dos modelos vêm das chaves oficiais registradas, nunca de caminhos recebidos nos dicionários dos nodes. Caminhos absolutos, com unidade, UNC e travessias de diretórios são rejeitados, assim como links simbólicos e junctions do Windows nos caminhos de artefatos/modelos. Após atualizar, reinicie o ComfyUI e execute novamente as etapas anteriores para substituir saídas em cache do formato antigo.
+
 Reutilize diretamente o `YUE2_PLAN` sem alterações entre as etapas. Para editar a composição, copie/edite o ABC e crie um novo pedido. Para comparar os decoders listening e legacy, decodifique **os mesmos latentes** duas vezes, sem gerar duas músicas diferentes. Seeds ajudam nas comparações, mas alterações de dispositivo, ambiente ou configuração podem mudar a reprodução do resultado. Cada execução gera um candidato; os resultados publicados best-of-N usam uma avaliação separada para escolher candidatos.
 
 Os covers do SheetSage2 criam uma nova interpretação a partir da partitura. **Não clonam uma pessoa a partir de sua gravação de voz e não trocam apenas o cantor preservando a forma de onda original.** Este node não adiciona um modelo de identidade vocal ao YuE2.
