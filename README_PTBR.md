@@ -11,7 +11,7 @@ A inferência usa a implementação Python original e os pesos oficiais do Huggi
 Coloque o repositório em `ComfyUI/custom_nodes/ComfyUI_YuE2`. Exemplo de instalação portable:
 
 ```text
-ComfyUI_NOVO/
+Comfy/
 ├── python_embeded/
 └── ComfyUI/
     ├── models/
