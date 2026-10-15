@@ -1,3 +1,5 @@
+[![Somora](https://somora.media/assets/somora-github-en.png)](https://somora.media)
+
 # ComfyUI_YuE2
 
 [Português brasileiro](README_PTBR.md)
