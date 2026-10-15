@@ -11,7 +11,7 @@ Inference uses the upstream Python implementation and official Hugging Face weig
 Put this repository in `ComfyUI/custom_nodes/ComfyUI_YuE2`. A typical portable installation is:
 
 ```text
-ComfyUI_NOVO/
+Comfy/
 ├── python_embeded/
 └── ComfyUI/
     ├── models/
